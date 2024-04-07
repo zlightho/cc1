@@ -1,0 +1,47 @@
+7.1. Именование булевых переменных
+1) not_admin -> is_admin.
+2) not_auth -> is_authenticated.
+3) flag -> is_error.
+4) is_disabled -> enabled.
+5) is_hidden -> visible.
+
+7.2 Типичные имена булевых переменных
+a) # Check if the subgrid of grid1 at position (i, j) matches grid2
+for i in range(H1 - H2 + 1):
+    for j in range(W1 - W2 + 1):
+        if all(
+                  grid1[i + di][j + dj] == grid2[di][dj]
+                  for di in range(H2)
+                  for dj in range(W2)
+            ):
+success = True
+
+
+b) if (
+        star_groups[1:] == star_groups[:-1]
+        and dot_groups[1:] == dot_groups[:-1]
+        and line[0] == "*"
+        and line[-1] == "*"
+    ):
+        found = True
+    else:
+        found = False
+
+7.3 Индексы - i,j,k.
+
+def transform(arr: List[int]) -> List[int]:
+    result = []
+    n = len(arr)
+    for index in range(n):
+        for row_index in range(n - index):
+            k = index + row_index
+            result.append(max(arr[row_index:k+1]))
+    return result
+
+7.4  Антонимы
+encoded_text и decoded_text
+isEnabled и isDisabled (можно ли использовать в таком варианте?)
+
+7.5 Временные переменные
+temp = matrix[layer][layer + 1] -> temporary_result 
+tmp = hits[i] -> temporary_value
