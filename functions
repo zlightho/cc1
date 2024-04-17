@@ -1,0 +1,12 @@
+1) two_lists_files -> search_files_by_extension - ищет все файлы с указанным расширением и все директории
+2) excel_random_numbers_table -> update_excel_file_with_random_numbers - заполняет таблицу рандомными числами
+3) str_docx_replace -> replace_string_from_docx_file - заменяет строку в ворд файле
+4) dict_number_of_repetitions_in_arr -> count_repeat_characters + create_dictionary - лучше разделить на две отдельные функции, подсчета и создания словаря с числом повторений и символом
+5) index -> render_index - функция рендерящая главную страницу сайта
+6) post -> render_post  - функция рендерящая страницу поста в блоге
+7) randomword -> generate_random_word - создает рандомное слово
+8) arr_add_keys -> generate_key_array - генерирует массив ключей,
+9) dict_values_add -> add_values_in_dict - добавление значения в словарь
+10) arr_random_array -> generate_random_array_with_numbers - генерирует массив случайных чисел
+11) image_converter -> convert_image_from_ext_to_another - конвертирует расширение картинки
+12) post_edit -> update_post - обновление поста
