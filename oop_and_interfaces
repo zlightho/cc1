@@ -1,0 +1,52 @@
+3.1. Три примера методов-фабрик.
+# Интерфейс для работы с геометрическими фигурами
+class Shape:
+    def area(self):
+        raise NotImplementedError
+    
+    def perimeter(self):
+        raise NotImplementedError
+
+# Абстрактный класс для реализации базовой функциональности фигур
+class BaseShape:
+    def __init__(self, color):
+        self.color = color
+    
+    def draw(self):
+        raise NotImplementedError
+
+# Реализация интерфейса Shape для круга
+class Circle(Shape):
+    def __init__(self, radius):
+        self.radius = radius
+    
+    def area(self):
+        return pi * self.radius ** 2
+    
+    def perimeter(self):
+        return 2 * pi * self.radius
+
+3.2. Примеры методов-фабрик:
+class Complex:
+    def __init__(self, real, imag):
+        self.real = real
+        self.imag = imag
+    
+    @staticmethod
+    def from_cartesian(real, imag):
+        return Complex(real, imag)
+    
+    @staticmethod
+    def from_polar(radius, angle):
+        real = radius * cos(angle)
+        imag = radius * sin(angle)
+        return Complex(real, imag)
+    
+    @staticmethod
+    def from_real_number(real):
+        return Complex(real, 0)
+
+# Использование методов-фабрик
+c1 = Complex.from_cartesian(3, 4)
+c2 = Complex.from_polar(5, pi/3)
+c3 = Complex.from_real_number(2)
