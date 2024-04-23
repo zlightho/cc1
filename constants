@@ -1,0 +1,17 @@
+1. LEN_STEP = 0.65 - длинна шага 
+2. M_IN_KM = 1000 - количество метров в км
+3. LEN_SWIMMING = 1.38 - длинна гребка, фактический перевод гребка fungus, как-то не звучит
+4. BASE_DIR - корневая категория
+5. SECRET_KEY - секрет для tg
+6. PI - вместо 3.14, добавлена константа для вычисления длинн, площадей окружностей и т.п.
+7. BASE_URL - корневой адрес сайта
+8. INSTALLED_APPS = [
+    "django.contrib.admin",
+    "django.contrib.auth",
+    "django.contrib.contenttypes",
+    ...
+] установленные модули в Django settings.py
+9. DEFAULT_DB_PATH = "/path/to/database.sqlite" - путь к базе данных
+10. MAX_POSTS = 100 - максимальное количество постов
+11. MIN_PASSWORD_LENGTH = 8 - минимальная длинна пароля
+12. FILE_EXTENSION = ".txt" - расширение файла
