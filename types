@@ -1,0 +1,148 @@
+1. Деление на 0
+# В блоке except обрабатывается исключение ZeroDivisionError, и вместо результата деления выводится сообщение об ошибке. 
+def safe_division(a, b):
+    try:
+        result = a / b
+    except ZeroDivisionError:
+        print("Ошибка: деление на ноль")
+        result = None
+    return result
+2. 
+# Попытка сложить два больших числа
+def check_overflow(a, b):
+    try:
+        sum_big = a + b
+    except ValueError as overflow_error:
+        print(f"Переполнение: {overflow_error}")
+        return False
+    
+    # Возвращаем True, если сложение выполнено успешно
+    return True
+
+3. Вещественные числа  
+Избегайте сравнений на равенство
+# Предположим, у нас есть два очень близких по значению вещественных числа
+x = 0.1 + 0.2
+y = 0.3 - 0.1
+
+# На первый взгляд, эти числа должны быть равны, но...
+print(x == y)  # Результат может быть False из-за проблем с точностью
+
+# Как лучше
+# Используем абсолютное значение для сравнения
+if abs(x - y) < 1e-9:
+    print("Числа достаточно близки друг к другу")
+else:
+    print("Числа не равны с достаточной точностью")
+
+4. Вещественные числа
+Избегайте сравнений на равенство 
+#Можно использовать специальные структуры данных, такие как Decimal из библиотеки decimal, которые предоставляют более высокую точность для сравнения вещественных чисел.
+
+5. Вещественные числа
+Замена чисел с одинарной точностью на числа с двойной точностью 
+x = 1.0  # Тип float (одинарная точность)
+y = 2.0  # Тип float (одинарная точность)
+
+# Заменяем типы на double
+x = x  *  1.0  # Конвертация в double
+y = y  *  1.0  # Конвертация в double
+
+6. Строки 
+Избегайте магических символов и строк — используйте константы.
+SPACE = ' '
+COMMA = ','
+NEWLINE = '\n'
+print("Separated by", COMMA, "and space", SPACE, "and ends with newline", NEWLINE)
+
+7. Строки
+Узнайте, как ваш язык и система поддерживают Unicode, и перейдите на этот формат.
+unicode_string = "Hello, 你好, नमस्ते"
+print("Unicode string:", unicode_string)
+
+8. Строки и символы
+Разработайте стратегию интернационализации/локализации текстовых сообщений в вашем коде (делайте это в самый ранний период создания программы).
+
+import gettext
+import os
+
+# Установка локализации
+locale_path = os.path.join(os.path.dirname(__file__), 'locales')
+gettext.install('hello_world', localedir=locale_path)
+
+# Функция для вывода приветствия
+def say_hello():
+    # Получение текущего языка системы
+    language = gettext.translation('hello_world', locale_path).getlanguage()
+    
+    # Выбор приветствия на нужном языке
+    if language == 'en':
+        greeting = _('Hello, world!')
+    elif language == 'fr':
+        greeting = _('Bonjour le monde!')
+    elif language == 'es':
+        greeting = _('Hola Mundo!')
+    else:
+        greeting = _('Привет, мир!')  # Русский язык по умолчанию
+    
+    # Вывод приветствия
+    print(greeting)
+
+# Вызов функции
+say_hello()
+
+9. Строки и символы
+Выберите целостную стратегию преобразования строковых типов, если они используются в вашей программе в разных кодировках. 
+# Encoding
+utf8_string = "Hello, 你好, नमस्ते".encode('utf-8')
+print("UTF-8 encoded string:", utf8_string)
+
+# Decoding
+decoded_string = utf8_string.decode('utf-8')
+print("Decoded from UTF-8:", decoded_string)
+
+10. Логические переменные
+def is_unique(elements):
+    seen = set()
+    for element in elements:
+        # Используем логическую переменную для упрощения условия
+        unique = True
+        for other in seen:
+            if element == other:
+                unique = False
+                break
+        if not unique:
+            return False
+        seen.add(element)
+    return True
+
+11. Логические переменные 
+#Флаг валидности вводимых данных
+int input(int *ptrArr, int *n) {
+    int isValid = 1;
+    char c;
+    for (int i = 0; i < NMAX; i++) {
+        int k = (scanf("%d%c", ptrArr + i, &c));
+        if (k < 1 || (k == 2 && c != ' ' && c != '\n' && c != EOF)) {
+            isValid = 0;
+        }
+    }
+    return isValid;
+}
+
+12. Логические переменные
+# Объявление логической переменной
+done = False
+
+# Бесконечный цикл, который будет выполняться до тех пор, пока done не станет True
+while not done:
+    # Здесь может быть любая логика
+    user_input = input("Введите 'quit', чтобы выйти из цикла: ")
+    
+    # Проверка ввода пользователя
+    if user_input.lower() == "quit":
+        done = True
+    else:
+        print("Продолжаем...")
+
+print("Цикл завершен.")
