@@ -1,0 +1,206 @@
+
+1. Локализация переменных внутри функций:
+def calculate_area(radius):
+    pi = 3.14159  # Локальная переменная
+    area = pi * radius ** 2
+    return area
+2. Использование лямбда-функций:
+# Лямбда-функция для вычисления площади круга
+calculate_area = lambda radius: 3.14159 * radius ** 2
+
+3. Разделение функций:
+def process_data(data):
+    processed_data = perform_processing(data)
+    formatted_data = format_data(processed_data)
+    return formatted_data
+
+def perform_processing(data):
+    # Локальные переменные и операции
+    pass
+
+def format_data(data):
+    # Локальные переменные и операции
+    pass
+4. Использование генераторов:
+# Генератор, возвращающий квадраты чисел от 1 до 10
+squares = (x ** 2 for x in range(1, 11))
+
+5. Использование композиции классов:
+class Engine:
+    def start(self):
+        pass
+
+    def stop(self):
+        pass
+
+class Car:
+    def __init__(self):
+        self.engine = Engine()  # Композиция классов
+
+6. Избегание глобальных переменных:
+
+PI = 3.14159  # Глобальная переменная, лучше избегать
+def calculate_area(radius):
+    area = PI * radius ** 2
+    return area
+
+7. Использование замыканий:
+def outer_function():
+    x = 10
+    def inner_function():
+        print(x)  # Доступ к переменной из внешней области видимости
+    return inner_function
+
+closure = outer_function()
+closure()  # Выведет: 10
+
+8. Использование менеджеров контекста:
+with open('example.txt', 'r') as file:
+    data = file.read()  # Локальная область видимости для файла
+
+9. Использование декораторов:
+def uppercase_decorator(func):
+    def wrapper(*args, **kwargs):
+        result = func(*args, **kwargs)
+        return result.upper()
+    return wrapper
+
+@uppercase_decorator
+def greet(name):
+    return f"Hello, {name}!"
+
+print(greet("Alice"))  # Выведет: HELLO, ALICE!
+
+10. Применение паттернов проектирования:
+class CarFactory:
+    def create_car(self):
+        return Car()
+
+class Car:
+    def __init__(self):
+        self.engine = Engine()  # Композиция классов
+
+Применение паттернов проектирования, таких как Фабрика или Стратегия, помогает ограничивать область видимости переменных, предоставляя интерфейсы для их использования.
+Книга "Приемы объектно-ориентированного проектирования. Паттерны проектирования" (Design Patterns: Elements of Reusable Object-Oriented Software) авторства Эриха Гаммы, Ричарда Хелма, Ральфа Джонсона и Джона Влиссидеса (также известная как книга "Банда четырёх" или "Gang of Four") является классическим источником информации о паттернах проектирования.
+
+В этой книге вы найдете описание различных паттернов проектирования, включая Фабрику (Factory) и Стратегию (Strategy), а также много других, объяснения их применения, примеры использования и соответствующие рекомендации.
+
+Эта книга является обязательным чтением для любого разработчика, стремящегося улучшить свои знания в области объектно-ориентированного проектирования и понять, как применять паттерны проектирования для создания гибких, модульных и понятных программных систем. 
+
+11. Пример обработки данных:
+def process_data(data):
+    print("Processing data...")
+    cleaned_data = clean_data(data)  # Группировка команд обработки данных
+    analyzed_data = analyze_data(cleaned_data)
+    visualize_data(analyzed_data)
+
+def clean_data(data):
+    print("Cleaning data...")
+    # Логика очистки данных
+    return cleaned_data
+
+def analyze_data(cleaned_data):
+    print("Analyzing data...")
+    # Логика анализа данных
+    return analyzed_data
+
+def visualize_data(analyzed_data):
+    print("Visualizing data...")
+    # Логика визуализации данных
+
+data = load_data()
+process_data(data)
+
+12. Пример работы с файлами:
+def process_file(filename):
+    print("Processing file...")
+    lines = read_file(filename)  # Группировка команд работы с файлом
+    processed_lines = process_lines(lines)
+    write_file(processed_lines, filename)
+
+def read_file(filename):
+    print("Reading file...")
+    # Чтение данных из файла и возврат списка строк
+    return lines
+
+def process_lines(lines):
+    print("Processing lines...")
+    # Обработка строк данных
+    return processed_lines
+
+def write_file(processed_lines, filename):
+    print("Writing file...")
+    # Запись обработанных данных в файл
+
+filename = "data.txt"
+process_file(filename)
+
+13. Пример работы с базой данных:
+def process_database():
+    print("Processing database...")
+    connection = connect_to_database()  # Группировка команд работы с базой данных
+    data = fetch_data_from_database(connection)
+    process_data_from_database(data)
+    close_connection(connection)
+
+def connect_to_database():
+    print("Connecting to database...")
+    # Подключение к базе данных
+    return connection
+
+def fetch_data_from_database(connection):
+    print("Fetching data from database...")
+    # Получение данных из базы данных
+    return data
+
+def process_data_from_database(data):
+    print("Processing data from database...")
+    # Обработка данных из базы данных
+
+def close_connection(connection):
+    print("Closing database connection...")
+    # Закрытие соединения с базой данных
+
+process_database()
+
+14. Пример работы с сетью:
+def process_network_request(url):
+    print("Processing network request...")
+    response = send_request(url)  # Группировка команд работы с сетью
+    process_response(response)
+
+def send_request(url):
+    print("Sending request to:", url)
+    # Отправка сетевого запроса и получение ответа
+    return response
+
+def process_response(response):
+    print("Processing response...")
+    # Обработка ответа на сетевой запрос
+
+url = "https://example.com/api"
+process_network_request(url)
+
+15. Обработка заказа
+def process_order(order):
+    validate_order(order)  # Группировка команд обработки заказа
+    calculate_total(order)
+    place_order(order)
+
+def validate_order(order):
+    print("Validating order...")
+
+def calculate_total(order):
+    print("Calculating total...")
+
+def place_order(order):
+    print("Placing order...")
+
+order = {
+    "items": ["Apple", "Banana", "Orange"],
+    "quantity": [5, 3, 2],
+    "customer": "John Doe",
+    "address": "123 Main St"
+}
+
+process_order(order)
