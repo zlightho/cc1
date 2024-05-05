@@ -1,0 +1,65 @@
+1. Пример максимально раннего связывания, во время написания кода
+RUN_COEFF_CALORIE_1 = 18
+def get_spent_calories(self) -> float:
+        return (
+            (
+                RUN_COEFF_CALORIE_1 * self.get_mean_speed()
+            )
+            * self.weight
+            / self.M_IN_KM
+            * self.duration
+            * self.MIN_IN_HOUR
+        )
+
+
+2. Cвязывание переменной выполняется чуть позднее -- во время компиляции кода.
+LEN_STEP: ClassVar[float] = 0.65
+M_IN_KM: ClassVar[float] = 1000.00
+MIN_IN_HOUR: ClassVar[float] = 60.00
+
+def get_distance(self) -> float:
+    """Получить дистанцию в км."""
+    return self.action * self.LEN_STEP / self.M_IN_KM
+
+3. Можно выполнять связывание во время выполнения программы - разобрал пример из теории:
+
+from PIL import Image, ImageDraw
+import ctypes
+
+# Функция для считывания цвета заголовочной панели
+def ReadTitleBarColor():
+    # Получаем хэндл текущего окна
+    hwnd = ctypes.windll.user32.GetForegroundWindow()
+
+    # Получаем контекст устройства для окна
+    hdc = ctypes.windll.user32.GetDC(hwnd)
+
+    # Получаем цвет пикселя в точке (0, 0) в формате RGB
+    color = ctypes.windll.gdi32.GetPixel(hdc, 0, 0)
+
+    # Преобразуем цвет в формат RGB
+    red = color & 0xFF
+    green = (color >> 8) & 0xFF
+    blue = (color >> 16) & 0xFF
+
+    return (red, green, blue)
+
+# Открываем изображение
+im = Image.open("test.png")
+draw = ImageDraw.Draw(im)
+sz = im.size
+
+# Считываем цвет заголовочной панели
+title_bar_color = ReadTitleBarColor()
+
+# Рисуем линию с полученным цветом
+draw.line([sz[0]/2, 0, sz[0]/2, sz[1]], fill=title_bar_color)
+
+# Сохраняем измененное изображение
+im.save("modified_test.png")
+
+# Открываем измененное изображение для просмотра
+im.show()
+
+#До:
+#draw.rectangle([10,10, 30,30], fill=(255,255,255))
