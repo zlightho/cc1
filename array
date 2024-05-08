@@ -1,0 +1,192 @@
+1. Использование итераторов: В Python, вы можете использовать итераторы для перебора элементов массива без знания их конкретных индексов. 
+Например, вы можете использовать цикл for для перебора элементов массива.
+for element in array:
+  print(element)
+
+2. Python предоставляет методы для работы с массивами, которые не требуют знания индексов. 
+В Python вы можете использовать методы append(), extend(), insert() и другие для манипуляции с массивами.
+
+arr = [1, 2, 3]
+arr.append(4)  # Добавляет элемент в конец массива
+arr.insert(1, 0)  # Вставляет элемент перед вторым элементом массива
+
+3. Массив -> Cписок
+#До
+def SumOfThe(N, data):
+    total = sum(data)
+    for i in range(N):
+        if total - data[i] == data[i]:
+            return data[i]
+    return None
+
+#После
+from typing import List
+
+
+def SumOfThe(N: int, data: List[int]) -> int:
+    total = sum(data)
+    # Используем метод pop() для удаления первого элемента из списка
+    while len(data) > 0:
+        popped = data.pop()
+        if total - popped == popped:
+            return popped
+    return None
+
+4. 
+#До список -> класс+список, с оптимизацией кода, вместо итераторов, перебор элементов.
+def Unmanned(L: int, N: int, track: List[List[int]]) -> int:
+    """receives the input length L of the road,
+    the number of traffic lights on it N,
+    and a description of the road itself,
+    where each element consists of three values:
+    the time relative to the beginning of the road
+    (when a car arrives on a free road),
+    the time when the red light is shown and the time when
+    the green color is shown."""
+    time = 0  # Current time
+    pos = 0  # Current position
+    if track[0][0] > L:
+        return L
+
+    for i in range(N):
+        # Time required to reach the next traffic light
+        time_to_reach = track[i][0] - pos
+        time += time_to_reach
+
+        # Time elapsed since the last green signal
+        elapsed = time % (track[i][1] + track[i][2])
+
+        # If the light is currently red or switching to green
+        if elapsed < track[i][1]:
+            # Wait for the light to turn green
+            wait_time = track[i][1] - elapsed
+            time += wait_time
+
+        pos = track[i][0]  # Move to the next traffic light
+
+    # Add the time to reach the end of the road
+    time += L - pos
+
+    return time
+
+track = [(2, 3), (3, 4)]
+print(Unmanned(2, 10, track))
+
+#После
+
+from typing import List
+
+class TrafficLight:
+    def __init__(self, red_time: int, green_time: int):
+        self.red_time = red_time
+        self.green_time = green_time
+
+    def is_green(self, time: int) -> bool:
+        cycle_time = self.red_time + self.green_time
+        return (time % cycle_time) < self.green_time
+
+class RoadSegment:
+    def __init__(self, position: int, traffic_light: TrafficLight):
+        self.position = position
+        self.traffic_light = traffic_light
+
+    def time_to_reach(self, current_pos: int) -> int:
+        return max(0, self.position - current_pos)
+
+    def time_to_pass_through(self, current_time: int) -> int:
+        if self.traffic_light.is_green(current_time):
+            return 0
+        else:
+            return self.traffic_light.green_time - (current_time % (self.traffic_light.red_time + self.traffic_light.green_time))
+
+def Unmanned(L: int, N: int, road_segments: List[RoadSegment]) -> int:
+    time = 0  # Current time
+    pos = 0  # Current position
+
+    for segment in road_segments:
+        time_to_reach = segment.time_to_reach(pos)
+        time += time_to_reach
+
+        time_to_pass_through = segment.time_to_pass_through(time)
+        time += time_to_pass_through
+
+        pos = segment.position  # Move to the next traffic light
+
+    # Add the time to reach the end of the road
+    time += L - pos
+
+    return time
+
+L = 10
+N = 2
+traffic_lights = [TrafficLight(2, 3), TrafficLight(3, 4)]
+road_segments = [RoadSegment(3, traffic_lights[0]), RoadSegment(7, traffic_lights[1])]
+print(Unmanned(L, N, road_segments))
+
+5.Массив -> двусторонняя очередь
+
+from typing import List
+
+
+def MisterRobot(N: int, data: List[int]) -> bool:
+    """
+    This function checks if it is possible to sort a given list of integers
+    from 1 to N using the following operation:
+    Take any three consecutive elements in the list, and rotate them to the
+    left any number of times.
+
+    Args:
+    N (int): The size of the list, and also the range of integers from 1 to N
+    (inclusive). data (List[int]): The input list of integers from 1 to N.
+
+    Returns:
+    bool: True if it`s possible to sort the list using the specified operation,
+    False otherwise.
+    """
+
+    for _ in range(N):
+        for i in range(N - 2):
+            if data[i] > data[i + 1]:
+                data[i], data[i + 1], data[i + 2] = (
+                    data[i + 1],
+                    data[i + 2],
+                    data[i],
+                )
+
+    return all(data[i] <= data[i + 1] for i in range(N - 1))
+
+
+№после
+
+from collections import deque
+from typing import List
+
+def MisterRobot(N: int, data: List[int]) -> bool:
+    """
+    Эта функция проверяет, можно ли отсортировать заданный список целых чисел
+    от 1 до N с использованием следующей операции:
+    Взять любые три последовательные элемента в списке и повернуть их
+    влево любое количество раз.
+
+    Args:
+    N (int): Размер списка, а также диапазон целых чисел от 1 до N
+    (включительно). data (List[int]): Входной список целых чисел от 1 до N.
+
+    Returns:
+    bool: True, если возможно отсортировать список с использованием указанной операции,
+    False в противном случае.
+    """
+    # Преобразование входного списка в deque для более простой манипуляции
+    data_queue = deque(data)
+
+    for _ in range(N):
+        for i in range(N - 2):
+            # Извлечение трех последовательных элементов из deque
+            a, b, c = data_queue[i], data_queue[i + 1], data_queue[i + 2]
+            if a > b:
+                # Поворот элементов в deque
+                data_queue[i], data_queue[i + 1], data_queue[i + 2] = b, c, a
+
+    # Проверка, отсортирован ли deque
+    return all(data_queue[i] <= data_queue[i + 1] for i in range(N - 1))
+
