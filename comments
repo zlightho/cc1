@@ -1,0 +1,189 @@
+3.1
+1,2
+def BigMinus(s1: str, s2: str) -> str:
+    """receives two numbers in string format as input (the numbers are always
+    correct -- a set of digits), and returns the absolute value (modulus)
+    of the difference -- the first number s1 minus the second number s2,
+    also in string format."""
+    if len(s1) < len(s2) or s1 < s2:
+        s1, s2 = s2, s1
+    s1 = list(s1)
+    s2 = list(s2)
+    s2 = [0] * (len(s1) - len(s2)) + s2
+    s = []
+    res = ""
+    transfer = 0
+    # Выполняем вычитание разрядов.
+    for i in range(len(s1) - 1, -1, -1):
+        d1 = int(s1[i])
+        d2 = int(s2[i])
+        # Если вычитаемое больше чем уменьшаемое, добавляем 10 и переносим разряд.
+        if d1 - transfer < d2:
+            s.append(str(d1 + 10 - d2 - transfer))
+            transfer = 1
+        else:
+            s.append(str(d1 - d2 - transfer))
+            transfer = 0
+    while len(s) > 1 and s[-1] == "0":
+        s.pop()
+    for i in range(len(s) - 1, -1, -1):
+        res += s[i]
+
+    return res
+  
+3.
+from typing import List
+
+
+def MaximumDiscount(N: int, price: List[int]) -> int:
+    """
+    Calculates the maximum discount that can be obtained by buying items.
+
+    Args:
+        N: An integer representing the number of items in the store.
+        price: A list of N integers representing the prices of the items.
+
+    Returns:
+        An integer representing the maximum discount that can be obtained
+        by buying items in the store.
+        The discount is calculated as the sum of every third item in the
+        sorted list of prices.
+
+    Example:
+        >>> MaximumDiscount(7, [400, 350, 300, 250, 200, 150, 100])
+        450
+    """
+    total_sum = sum(price)
+    sorted_price = sorted(price, reverse=True)
+    # Скидка рассчитывается как сумма каждого третьего элемента
+    # в отсортированном списке цен.
+    disc_price_list = sum(
+        [sorted_price[i] for i in range(len(price)) if (i + 1) % 3 != 0]
+    )
+    return total_sum - disc_price_list
+
+4.
+from typing import List
+
+
+def ShopOLAP(N: int, items: List[str]) -> dict:
+    """
+    receives N >= 1 rows about products in the above format as input,
+    and outputs an array of length M <= N containing a sales summary
+    in grouped form.
+    """
+    result_dict = {}
+    for i in items:
+        split_list = i.split()
+        key, value = split_list[0], int(split_list[1])
+        if key in result_dict:
+            result_dict[key] += value
+        else:
+            result_dict[key] = value
+    # Сортируем словарь результатов по общему количеству продаж по убыванию,
+    # а затем по идентификатору продукта по возрастанию.
+    sorted_result_list = sorted(
+        result_dict.items(), key=lambda x: (-x[1], x[0])
+    )
+    formatted_result = [f"{key} {value}" for key, value in sorted_result_list]
+    return formatted_result
+  
+5.
+def SherlockValidString(s: str) -> bool:
+    """
+    Determines whether a given string is valid based on the following conditions:
+    - All letters occur an equal number of times;
+    - It is allowed to remove one letter to make the frequency of all letters equal.
+
+    Args:
+        s (str): The input string consisting of Latin letters.
+
+    Returns:
+        bool: True if the string is valid, False otherwise.
+
+    Examples:
+        >>> is_valid_password("xyz")
+        True
+        >>> is_valid_password("xyzaa")
+        True
+        >>> is_valid_password("xxyyz")
+        True
+        >>> is_valid_password("xyzzz")
+        False
+        >>> is_valid_password("xxyyza")
+        False
+        >>> is_valid_password("xxyyzabc")
+        False
+    """
+    letter_freq = {}
+    for letter in s:
+        if letter in letter_freq:
+            letter_freq[letter] += 1
+        else:
+            letter_freq[letter] = 1
+
+    freq_values = list(set(letter_freq.values()))
+    
+    if len(freq_values) == 1:
+        return True
+
+    if len(freq_values) != 2:
+        return False
+
+    min_freq, max_freq = sorted(freq_values)
+    freq_diff = max_freq - min_freq
+
+    # Строка также допустима, если одна буква встречается только один раз, 
+    # или если разница между частотами равна 1, и только одна буква имеет наибольшую частоту.  
+    return (min_freq == 1 and list(letter_freq.values()).count(min_freq) == 1) or (freq_diff == 1 and list(letter_freq.values()).count(max_freq) == 1)  
+6.
+for _ in range(steps):
+            temp = matrix[layer][layer]
+            # Rotate left column
+            for row in range(layer, M - layer - 1):
+                matrix[row][layer] = matrix[row + 1][layer]
+            # Rotate bottom row
+            for col in range(layer, N - layer - 1):
+                matrix[M - layer - 1][col] = matrix[M - layer - 1][col + 1]
+            # Rotate right column
+            for row in range(M - layer - 1, layer, -1):
+                matrix[row][N - layer - 1] = matrix[row - 1][N - layer - 1]
+            # Rotate top row
+            for col in range(N - layer - 1, layer + 1, -1):
+                matrix[layer][col] = matrix[layer][col - 1]
+            matrix[layer][layer + 1] = temp  
+7.
+def white_walkers(village: str) -> bool:
+    pairs = []
+    last_digit_idx = None
+    for i in range(len(village)):
+        if village[i].isdigit():
+            if (
+                last_digit_idx is not None
+                and int(village[i]) + int(village[last_digit_idx]) == 10
+            ):
+                pairs.append((last_digit_idx, i))
+            last_digit_idx = i
+    for pair in pairs:
+        # Проверяем каждую пару на наличие трех символов "=" между ними.
+        if village[pair[0] + 1 : pair[1]].count("=") != 3:
+            return False
+    return len(pairs) > 0
+
+3.2.
+1.  # Initialize queue
+    queue = []
+
+2. # While the queue is not empty
+    # and the captured territory is smaller than the captured territory
+    while len(queue) > 0 and captured < N * M:
+
+3. # Go through all possible movements
+        for x, y in queue:
+
+4. # Преобразование входного списка в deque для более простой манипуляции
+    data_queue = deque(data)
+5. # Печатаем исходный список
+print("Исходный список:", data)
+
+
