@@ -1,0 +1,78 @@
+1. Бормотание
+# Получаем id котика из эндпоинта
+        post_id = self.kwargs.get("post_id")
+        # И отбираем только нужные комментарии
+        new_queryset = Comment.objects.filter(post=post_id)
+2. Бормотание
+# проверяем, что в корне репозитория лежит папка с проектом
+if (
+        PROJECT_DIR_NAME not in root_dir_content
+        or not os.path.isdir(os.path.join(BASE_DIR, PROJECT_DIR_NAME))
+)
+3. Бормотание
+  # Go through all possible movements
+        for x, y in queue:
+4. Шум
+  # Increasing the counter of captured points
+                captured += 1
+5. Шум
+  image = models.ImageField(
+        upload_to='posts/', null=True, blank=True
+    )  # поле для картинки
+  
+6,7,8. Избыточные комментарии
+def dict_number_of_repetitions_in_arr(arr_numbers, counts):
+    # Словарь для подсчета кол-ва повторений
+    repetition_counts = {}
+    list = ()
+    # Проходим по списку чисел
+    for i in arr_numbers:
+        # Если числа нет в словаре
+        if i not in repetition_counts.keys():
+            # Создаем ключ-значение и счетчик с единицы стартует
+            repetition_counts[i] = 1
+            # В остальных случаях ключ уже есть суммируем
+        else:
+            repetition_counts[i] += 1
+            # если счетчик перевалил порог
+            if repetition_counts[i] >= counts:
+                list.add(i)
+
+    return list
+10. Обязательные комментарии
+  def selectionSort(arr):
+    """Get array and return sorted array"""
+11. Обязательные комментарии
+  def find_smallest(arr):
+    """Get array and return index of the smallest element"""
+12. Закомментированный код
+  # image_converter(".png", ".jpg")
+13. Закомментированный код
+# def save_user_data_to_file(user_data):
+#     with open("user_data.json", "w") as file:
+#         json.dump(user_data, file)
+
+
+# def load_user_data_from_file():
+#     try:
+#         with open("user_data.json", "r") as file:
+#             content = file.read()
+#             if not content:
+#                 user_data = {}
+#             else:
+#                 user_data = json.loads(content)
+#     except FileNotFoundError:
+#         user_data = {}
+
+#     user_data = {int(user_id): data for user_id, data in user_data.items()}
+#     return user_data
+14. Не используйте комментарии там, где можно использовать функцию или переменную
+def find_substr(str1:str, substr:str):
+    """Get string and substring, return 1 if substr in str == True, else 0"""
+
+15. Не используйте комментарии там, где можно использовать функцию или переменную
+def SumOfThe(N: int, data: List[int]) -> int:
+    """gets the length of the entire summary by the parameter N (N >= 2),
+    and then the summary itself (integers) is stored in an array of length N.
+    The function returns an integer from the summary,
+    which is equal to the sum of all other numbers."""
